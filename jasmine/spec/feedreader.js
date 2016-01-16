@@ -21,7 +21,7 @@ $(function() {
      * allFeeds variable has been defined and that it is not
      * empty.
      */
-    it('are defined', function() {
+    it('are defined and not-empty', function() {
       expect(allFeeds).toBeDefined();
       expect(allFeeds.length).not.toBe(0);
     });
@@ -31,7 +31,7 @@ $(function() {
      * in the allFeeds object and ensures it has a URL defined
      * and that the URL is not empty.
      */
-    it('have urls', function() {
+    it('have urls that are not-empty', function() {
       for (var i = 0; i < allFeeds.length; i++) {
         expect(allFeeds[i].url).toBeDefined();
         expect(allFeeds[i].url).not.toBe('');
@@ -43,7 +43,7 @@ $(function() {
      * in the allFeeds object and ensures it has a name defined
      * and that the name is not empty.
      */
-    it('have names', function() {
+    it('have names that are not-empty', function() {
       for (var i = 0; i < allFeeds.length; i++) {
         expect(allFeeds[i].name).toBeDefined();
         expect(allFeeds[i].name).not.toBe('');
@@ -59,14 +59,14 @@ $(function() {
     /* A test that ensures the menu element is
      * hidden by default.
      */
-    it('starts hidden', function() {
+    it('starts hidden by default', function() {
       expect($('.menu-hidden').length).toBe(1);
     });
 
     /* A test that ensures the menu changes
      * visibility when the menu icon is clicked.
      */
-    it('toggles on click', function() {
+    it('visibility toggles on click', function() {
 
       $('.menu-icon-link').trigger('click');
       expect($('.menu-hidden').length).toBe(0);
@@ -95,17 +95,25 @@ $(function() {
 
   /* A test suite used to evaluate new feeds loading */
   describe('New Feed Selection', function() {
-    var first_entry = $('.feed .entry')[0];
+    var firstEntry;
 
+    /* first loads the first feed,
+     * saves the value of the first entry in the firstEntry var
+     * than loads the second one
+     */
     beforeEach(function(done){
-      loadFeed(1, done);
+      loadFeed(0, function() {
+        firstEntry = $('.feed .entry')[0];
+        loadFeed(1, done);
+      });
     });
 
     /* A test that ensures that when a new feed is loaded
      * by the loadFeed function, the content actually changes.
      */
     it('should have been loaded new feed', function(){
-      expect(first_entry === $('.feed .entry')[0]).toBe(false);
+      console.log(firstEntry, $('.feed .entry')[0]);
+      expect($('.feed .entry')[0]).not.toEqual(firstEntry);
     });
 
   });
