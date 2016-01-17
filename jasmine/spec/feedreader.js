@@ -111,10 +111,11 @@ $(function() {
     /* A test that ensures that when a new feed is loaded
      * by the loadFeed function, the content actually changes.
      */
-    it('should have been loaded new feed', function(){
+    it('new feed has been loaded', function(){
       console.log(firstEntry, $('.feed .entry')[0]);
       expect($('.feed .entry')[0]).not.toEqual(firstEntry);
     });
 
   });
+
 }());
